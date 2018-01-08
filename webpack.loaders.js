@@ -1,6 +1,17 @@
 const path = require('path');
 
 module.exports = [
+
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            extends: path.join(__dirname, '.babelrc')
+          }
+      }
+},
   {
     // global css
     test: /\.css$/,
@@ -27,11 +38,6 @@ module.exports = [
     test: /\.js$/,
     loader: 'remove-flow-types-loader',
     include: [/node_modules\/mapbox-gl\/js/]
-  },
-  {
-    test: /\.jsx?$/,
-    exclude: /(node_modules|bower_components|public)/,
-    loader: 'babel-loader'
   },
   {
     test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,

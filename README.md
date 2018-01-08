@@ -5,6 +5,12 @@ simple webpack babel (next Js) boilerplate to scaffold projects
 ### What's in it?
 Just a simple [index.js](./index.jsx), [webpack.config.js](./webpack.config.js) and [index.html](./src/template.html) file.
 
+
+### TODO
+* test hot reloading
+* Make Production ready (ENV variables)
+
+
 ### To run
 
 You can simply run webpack build using this command:

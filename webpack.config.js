@@ -10,10 +10,19 @@ const PORT = process.env.PORT || '8888';
 
 module.exports = {
   entry: [
+
+    'react-hot-loader/patch',
+
+    // bundle the client for webpack-dev-server
+    // and connect to the provided endpoint
+
+    'webpack/hot/only-dev-server',
+    // bundle the client for hot reloading
+    // only- means to only hot reload for successful updates
     // "react-hot-loader/patch",
-    './src/index.js' // your app's entry point
+    './index.jsx' // your app's entry point
   ],
-  devtool: process.env.WEBPACK_DEVTOOL || 'source-map',
+  devtool: 'cheap-module-source-map',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -31,20 +40,21 @@ module.exports = {
     inline: true,
     historyApiFallback: true,
     port: PORT,
-    host: HOST,
-    proxy: {
-      '**': {
-        target: 'http://localhost:8000/',
-        secure: false
-      }
-    }
+    host: HOST
+    // proxy: {
+    //   '**': {
+    //     target: 'http://localhost:8000/',
+    //     secure: false
+    //   }
+    // }
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new CleanWebpackPlugin(['dist']),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './src/template.html'
-    })
+    }),
+    new webpack.EnvironmentPlugin({ DEV: true })
   ]
 };
