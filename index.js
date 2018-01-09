@@ -1,3 +1,4 @@
+import Grid from './src';
 // import React from 'react';
 // import ReactDOM from 'react-dom';
 //
@@ -23,3 +24,4 @@
 //     render(App);
 //   });
 // }
+export default Grid;
