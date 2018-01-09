@@ -5,17 +5,15 @@
       "targets": {
         "browsers": ["last 2 versions"]
       },
-      "useBuiltIns": true,
+      "useBuiltIns": true
     }],
     "react"
   ],
   "env": {
     "development": {
       "plugins": [
-        "react-hot-loader/babel",
-        "transform-class-properties"
+        "react-hot-loader/babel"
       ]
     }
-  },
-  "plugins": ["transform-object-rest-spread" ]
+  }
 }

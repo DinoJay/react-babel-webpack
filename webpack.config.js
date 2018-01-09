@@ -16,11 +16,13 @@ module.exports = {
     // bundle the client for webpack-dev-server
     // and connect to the provided endpoint
 
+    `webpack-dev-server/client?http://${HOST}:${PORT}`,
     'webpack/hot/only-dev-server',
+
     // bundle the client for hot reloading
     // only- means to only hot reload for successful updates
     // "react-hot-loader/patch",
-    './index.jsx' // your app's entry point
+    './testing/index.jsx' // your app's entry point
   ],
   devtool: 'cheap-module-source-map',
   output: {
@@ -53,7 +55,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      template: './src/template.html'
+      template: './testing/template.html'
     }),
     new webpack.EnvironmentPlugin({ DEV: true })
   ]
