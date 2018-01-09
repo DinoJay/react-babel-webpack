@@ -5,7 +5,6 @@ import VisibilitySensor from 'react-visibility-sensor';
 import PropTypes from 'prop-types';
 
 import { ScrollView, ScrollElement } from './ScrollView';
-import cx from './index.scss';
 
 // function getCol(n) {
 //   // return  (3 + (-1) ** n - 2 * n)/ 4 * 3;
@@ -58,7 +57,7 @@ class Grid extends Component {
       colWidth,
       rowHeight,
       cols,
-  rows,
+      rows,
       gap,
       style
     } = this.props;
@@ -67,7 +66,7 @@ class Grid extends Component {
     if (cols !== null && colWidth !== null) {
       gridTemplateColumns = `repeat(${cols}, ${colWidth})`;
     } else if (cols !== null) {
-      const columnWidth = (100 - cols * gap + 1) / cols;
+      const columnWidth = (100 - cols * gap) / cols;
       gridTemplateColumns = `repeat(${cols}, ${columnWidth}%)`;
     } else if (colWidth !== null)
       gridTemplateColumns = `repeat(${children.length}, ${colWidth})`;
@@ -80,17 +79,16 @@ class Grid extends Component {
       gridTemplateRows = `repeat(${children.length}, ${colWidth})`;
     else gridTemplateRows = null;
 
-    console.log(
-      'gridTemplateColumns',
-      gridTemplateColumns,
-      'gridTemplateRows',
-      gridTemplateColumns
-    );
     return (
       <ScrollView ref={scroller => (this._scroller = scroller)}>
         <div
-          className={cx.wrapper}
-          style={{ ...style, gridTemplateRows, gridTemplateColumns, gridGap: `${gap}%` }}
+          style={{
+            ...style,
+            gridTemplateRows,
+            gridTemplateColumns,
+            gridGap: `${gap}%`,
+            display: 'grid'
+          }}
         >
           {React.Children.map(children, (comp, i) => {
             const col = getCol(i, children.length, colSpan); // Math.floor(i / 2) + 1;
@@ -102,7 +100,7 @@ class Grid extends Component {
                   top: 0
                 }}
               >
-                {({ isVisible }) =>
+                {({ isVisible }) => (
                   <ScrollElement name={i}>
                     <Item
                       colSpan={selectedComp ? selectedColSpan : colSpan}
@@ -113,7 +111,8 @@ class Grid extends Component {
                     >
                       {comp}
                     </Item>
-                  </ScrollElement>}
+                  </ScrollElement>
+                )}
               </VisibilitySensor>
             );
           })}
@@ -136,7 +135,7 @@ Grid.defaultProps = {
   cols: null,
   rows: null,
   gap: 0,
-  style:{}
+  style: {}
 };
 
 class Item extends Component {
@@ -169,7 +168,6 @@ class Item extends Component {
 
     return (
       <div
-        className={cx.item}
         style={{
           gridColumn: col ? `${col} / span ${colSpan}` : `span ${colSpan}`,
           gridRowEnd: `span ${rowSpan}`,
